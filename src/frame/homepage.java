@@ -12,7 +12,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author Andrian Baros
+ * @author Andrian Baros dan dapin
  */
 public class homepage extends javax.swing.JFrame {
     private int userID;
