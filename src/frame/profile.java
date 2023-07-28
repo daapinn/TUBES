@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import tubes.Koneksi;
 
 /**
- *
+ * batosasasasa
  * @author daapinn 
  */
 public class profile extends javax.swing.JFrame {
@@ -32,7 +32,6 @@ public class profile extends javax.swing.JFrame {
         pstmt.setInt(1, userID);
 
         ResultSet rs = pstmt.executeQuery();
-
         if (rs.next()) {
             String usernameValue = rs.getString("username");
             String passwordValue = rs.getString("password");
