@@ -31,19 +31,19 @@ public class profile extends javax.swing.JFrame {
         PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM account WHERE id = ?");
         pstmt.setInt(1, userID);
 
-        ResultSet rs = pstmt.executeQuery();
+        ResultSet r = pstmt.executeQuery();
 
-        if (rs.next()) {
-            String usernameValue = rs.getString("username");
-            String passwordValue = rs.getString("password");
-            String idValue = rs.getString("id");
+        if (r.next()) {
+            String usernameValue = r.getString("username");
+            String passwordValue = r.getString("password");
+            String idValue = r.getString("id");
 
             username.setText(usernameValue);
             password.setText(passwordValue);
             id.setText(idValue);
         }
 
-        rs.close();
+        r.close();
         pstmt.close();
     } catch (SQLException ex) {
         ex.printStackTrace();
