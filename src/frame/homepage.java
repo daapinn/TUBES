@@ -15,7 +15,7 @@ import javax.swing.Timer;
 <<<<<<< HEAD
  * @author Andrian Baros
  * @autor dapin
-=======
+======= DI COBA COBA
  * @author Andrian Baros dan dapin
 >>>>>>> 688db74f9cc916c613dc6e5f2a3415b64a65e24d
  */
