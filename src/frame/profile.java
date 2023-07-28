@@ -10,7 +10,7 @@ import tubes.Koneksi;
 
 /**
  *
- * @author daapinn
+ * @author daapinn 
  */
 public class profile extends javax.swing.JFrame {
     Font f = new Font("Helvetica Rounded", Font.BOLD, 15);
@@ -31,19 +31,19 @@ public class profile extends javax.swing.JFrame {
         PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM account WHERE id = ?");
         pstmt.setInt(1, userID);
 
-        ResultSet r = pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
 
-        if (r.next()) {
-            String usernameValue = r.getString("username");
-            String passwordValue = r.getString("password");
-            String idValue = r.getString("id");
+        if (rs.next()) {
+            String usernameValue = rs.getString("username");
+            String passwordValue = rs.getString("password");
+            String idValue = rs.getString("id");
 
             username.setText(usernameValue);
             password.setText(passwordValue);
             id.setText(idValue);
         }
 
-        r.close();
+        rs.close();
         pstmt.close();
     } catch (SQLException ex) {
         ex.printStackTrace();
