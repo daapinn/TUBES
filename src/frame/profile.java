@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 import tubes.Koneksi;
 
 /**
- * batosasasasa
- * @author daapinn 
+ * 
+ *  
  */
 public class profile extends javax.swing.JFrame {
     Font f = new Font("Helvetica Rounded", Font.BOLD, 15);
