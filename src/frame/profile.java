@@ -6,11 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import tubes.ClickAnimationLabel;
 import tubes.Koneksi;
 
 /**
  * 
- *  
+ * 
  */
 public class profile extends javax.swing.JFrame {
     Font f = new Font("Helvetica Rounded", Font.BOLD, 15);
@@ -22,32 +23,55 @@ public class profile extends javax.swing.JFrame {
     initComponents();
     this.userID = userID;
     populateFieldsFromDatabase(userID);
+    edit = new ClickAnimationLabel(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 7.png")));
+        edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+        });
+        getContentPane().add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 580, 160, -1));
+
+        // Replace the standard JLabel with ClickAnimationLabel for the savedata label
+        savedata = new ClickAnimationLabel(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 15.png")));
+        savedata.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        savedata.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                savedataMouseClicked(evt);
+            }
+        });
+        getContentPane().add(savedata, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 580, -1, -1));
 }
 
 
     private void populateFieldsFromDatabase(int userID) {
-    try {
-        Connection conn = Koneksi.getKoneksi();
-        PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM account WHERE id = ?");
-        pstmt.setInt(1, userID);
+        try {
+            Connection conn = Koneksi.getKoneksi();
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM account WHERE id = ?");
+            pstmt.setInt(1, userID);
 
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            String usernameValue = rs.getString("username");
-            String passwordValue = rs.getString("password");
-            String idValue = rs.getString("id");
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String usernameValue = rs.getString("username");
+                String passwordValue = rs.getString("password");
+                String idValue = rs.getString("id");
+                
+                username.setText(usernameValue);
+                password.setText(passwordValue);
+                id.setText(idValue);
+            }
 
-            username.setText(usernameValue);
-            password.setText(passwordValue);
-            id.setText(idValue);
-        }
-
-        rs.close();
-        pstmt.close();
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+            rs.close();
+            pstmt.close();
+            } catch (SQLException ex) {
+            ex.printStackTrace();
+            }
+    
     }
-}
+
+        
+    
+        
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,18 +106,22 @@ public class profile extends javax.swing.JFrame {
         id.setEditable(false);
         id.setFont(f);
         id.setForeground(new java.awt.Color(255, 255, 255));
+        id.setCaretColor(new java.awt.Color(255, 255, 255));
         id.setOpaque(false);
         getContentPane().add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 500, 440, 30));
 
         password.setEditable(false);
         password.setFont(f);
         password.setForeground(new java.awt.Color(255, 255, 255));
+        password.setCaretColor(new java.awt.Color(255, 255, 255));
         password.setOpaque(false);
         getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 440, 30));
 
         username.setEditable(false);
         username.setFont(f);
         username.setForeground(new java.awt.Color(255, 255, 255));
+        username.setCaretColor(new java.awt.Color(255, 255, 255));
+        username.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         username.setOpaque(false);
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 440, 30));
 
@@ -201,32 +229,35 @@ public class profile extends javax.swing.JFrame {
     }//GEN-LAST:event_editMouseClicked
 
     private void savedataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savedataMouseClicked
-         String newUsername = username.getText();
-        String newPassword = password.getText();
+        String newUsername = username.getText().trim();
+        String newPassword = password.getText().trim();
 
-    try {
-        Connection conn = Koneksi.getKoneksi();
-        PreparedStatement pstmt = conn.prepareStatement("UPDATE account SET username = ?, password = ? WHERE id = ?");
-        pstmt.setString(1, newUsername);
-        pstmt.setString(2, newPassword);
-        pstmt.setInt(3, userID); // Make sure userID is set correctly in the profile class
-
-        int rowsUpdated = pstmt.executeUpdate();
-
-        if (rowsUpdated > 0) {
-            System.out.println("Data updated successfully.");
+        if (newUsername.length() < 6 || newPassword.length() < 8) {
+          JOptionPane.showMessageDialog(null, "New Username must have at least 6 characters and New Password must have at least 8 characters");
         } else {
-            System.out.println("Failed to update data.");
-        }
+            try {
+                Connection conn = Koneksi.getKoneksi();
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE account SET username = ?, password = ? WHERE id = ?");
+                pstmt.setString(1, newUsername);
+                pstmt.setString(2, newPassword);
+                pstmt.setInt(3, userID); 
+                int rowsUpdated = pstmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Data updated suc*cessfully.");
+                } else {
+                    System.out.println("Failed to update data.");
+                }
 
-        pstmt.close();
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    }   
-        JOptionPane.showMessageDialog(null, "Successfully Changing data, Please Sign In again!");
-        signin si=new signin();
-        si.setVisible(true);
-        this.dispose();
+                pstmt.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }   
+        
+            JOptionPane.showMessageDialog(null, "Successfully Changing data, Please Sign In again!");
+            signin si=new signin();
+            si.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_savedataMouseClicked
 
     /**

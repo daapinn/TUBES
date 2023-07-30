@@ -124,49 +124,41 @@ public class signin extends javax.swing.JFrame {
     }//GEN-LAST:event_txUsernameActionPerformed
 
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
-       try {
-        Connection c = Koneksi.getKoneksi();
-        Statement s = c.createStatement();
-
-        // Get the username and password from the input fields
+     // Get the username and password from the input fields
         String username = txUsername.getText(); // Convert input username to lowercase
         String password = txPassword.getText();
-
-        // Query the database with the provided username
-        String sql = "SELECT * FROM account WHERE Username=?";
-        PreparedStatement pstmt = c.prepareStatement(sql);
-        pstmt.setString(1, username);
-        ResultSet r = pstmt.executeQuery();
-
-        // Check if the username exists in the database
-        if (r.next()) {
-            // Compare the password with the one stored in the database
-            String storedUsername = r.getString("Username"); // Convert stored username to lowercase
-            String storedPassword = r.getString("Password");
-            
-            if (username.equals(storedUsername) && password.equals(storedPassword)) {
-                // Login successful
-                JOptionPane.showMessageDialog(null, "Login Successfully");
-                this.dispose(); // Close the login form
-
-                // Open the homepage and pass the userID as an argument
-                int userID = r.getInt("ID"); // Assuming the column name for the user ID is "ID"
-                homepage home = new homepage(userID);
-                home.setVisible(true);
-            } else {
-                // Incorrect username or password
-                JOptionPane.showMessageDialog(null, "Wrong Username or Password");
-                txPassword.requestFocus();
-            }
+        if (username.length() < 6 || password.length() < 8) {
+        JOptionPane.showMessageDialog(null, "Username must have at least 6 characters and Password must have at least 8 characters");
         } else {
-            // Username not found
-            JOptionPane.showMessageDialog(null, "Username not found");
-            txUsername.requestFocus();
-        }
-    } catch (SQLException e) {
+            try {
+                Connection c = Koneksi.getKoneksi();
+                Statement s = c.createStatement();
+                String sql = "SELECT * FROM account WHERE Username=?";
+                PreparedStatement pstmt = c.prepareStatement(sql);
+                pstmt.setString(1, username);
+                ResultSet r = pstmt.executeQuery();
+
+                if (r.next()) {
+                    String storedUsername = r.getString("Username"); // Convert stored username to lowercase
+                    String storedPassword = r.getString("Password");
+                    if (username.equals(storedUsername) && password.equals(storedPassword)) {
+                        JOptionPane.showMessageDialog(null, "Login Successfully");
+                        this.dispose(); // Close the login form
+                        int userID = r.getInt("ID"); // Assuming the column name for the user ID is "ID"
+                        homepage home = new homepage(userID);
+                        home.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Wrong Username or Password");
+                        txPassword.requestFocus();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username not found");
+                    txUsername.requestFocus();
+                }
+            } catch (SQLException e) {
         System.out.println("Error: " + e.getMessage());
-    }
-            
+            }
+        }
     }//GEN-LAST:event_btnActionPerformed
 
     private void txPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txPasswordActionPerformed

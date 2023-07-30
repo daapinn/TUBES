@@ -154,11 +154,11 @@ public class signup extends javax.swing.JFrame {
         String password = txPassword.getText().toString().trim();
         String conPassword = txConPassword.getText().toString().trim();
         
-        if (!password.equals(conPassword)){
-            JOptionPane.showMessageDialog(null, "Password not match");
-        }else if (password.equals("") || username.equals("")){
-            JOptionPane.showMessageDialog(null, "Username or Password cannot be empty");
-        }else{
+        if (username.length() < 6 || password.length() < 8) {
+        JOptionPane.showMessageDialog(null, "Username must have at least 6 characters and Password must have at least 8 characters");
+        } else if (!password.equals(conPassword)) {
+        JOptionPane.showMessageDialog(null, "Password not match");
+        } else {
             try{
                 Connection c = Koneksi.getKoneksi();
                 Statement s = c.createStatement();
