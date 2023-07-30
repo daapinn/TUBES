@@ -10,7 +10,7 @@ import tubes.Koneksi;
 
 /**
  * 
- *  
+ * 
  */
 public class profile extends javax.swing.JFrame {
     Font f = new Font("Helvetica Rounded", Font.BOLD, 15);
@@ -201,32 +201,35 @@ public class profile extends javax.swing.JFrame {
     }//GEN-LAST:event_editMouseClicked
 
     private void savedataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savedataMouseClicked
-         String newUsername = username.getText();
-        String newPassword = password.getText();
+        String newUsername = username.getText().trim();
+        String newPassword = password.getText().trim();
 
-    try {
-        Connection conn = Koneksi.getKoneksi();
-        PreparedStatement pstmt = conn.prepareStatement("UPDATE account SET username = ?, password = ? WHERE id = ?");
-        pstmt.setString(1, newUsername);
-        pstmt.setString(2, newPassword);
-        pstmt.setInt(3, userID); // Make sure userID is set correctly in the profile class
-
-        int rowsUpdated = pstmt.executeUpdate();
-
-        if (rowsUpdated > 0) {
-            System.out.println("Data updated successfully.");
+        if (newUsername.length() < 6 || newPassword.length() < 8) {
+          JOptionPane.showMessageDialog(null, "New Username must have at least 6 characters and New Password must have at least 8 characters");
         } else {
-            System.out.println("Failed to update data.");
-        }
+            try {
+                Connection conn = Koneksi.getKoneksi();
+                PreparedStatement pstmt = conn.prepareStatement("UPDATE account SET username = ?, password = ? WHERE id = ?");
+                pstmt.setString(1, newUsername);
+                pstmt.setString(2, newPassword);
+                pstmt.setInt(3, userID); 
+                int rowsUpdated = pstmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Data updated suc*cessfully.");
+                } else {
+                    System.out.println("Failed to update data.");
+                }
 
-        pstmt.close();
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    }   
-        JOptionPane.showMessageDialog(null, "Successfully Changing data, Please Sign In again!");
-        signin si=new signin();
-        si.setVisible(true);
-        this.dispose();
+                pstmt.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }   
+        
+            JOptionPane.showMessageDialog(null, "Successfully Changing data, Please Sign In again!");
+            signin si=new signin();
+            si.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_savedataMouseClicked
 
     /**
