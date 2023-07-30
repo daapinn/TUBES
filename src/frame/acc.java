@@ -118,6 +118,9 @@ public class acc extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         // TODO add your handling code here:
+        this.dispose();
+        shopping sc=new shopping(userID);
+        sc.setVisible(true);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
