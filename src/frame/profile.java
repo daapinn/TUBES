@@ -23,14 +23,14 @@ public class profile extends javax.swing.JFrame {
     initComponents();
     this.userID = userID;
     populateFieldsFromDatabase(userID);
-    edit = new ClickAnimationLabel(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 7.png")));
-        edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+    logout = new ClickAnimationLabel(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 7.png")));
+        logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editMouseClicked(evt);
             }
         });
-        getContentPane().add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 580, 160, -1));
+        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 580, 160, -1));
 
         // Replace the standard JLabel with ClickAnimationLabel for the savedata label
         savedata = new ClickAnimationLabel(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 15.png")));
@@ -81,6 +81,7 @@ public class profile extends javax.swing.JFrame {
         password = new javax.swing.JTextField();
         username = new javax.swing.JTextField();
         savedata = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -133,6 +134,15 @@ public class profile extends javax.swing.JFrame {
             }
         });
         getContentPane().add(savedata, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 580, -1, -1));
+
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 16.png"))); // NOI18N
+        logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 580, 160, -1));
 
         edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 7.png"))); // NOI18N
         edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -223,10 +233,13 @@ public class profile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-        username.setEditable(true);
-        password.setEditable(true);
-    }//GEN-LAST:event_editMouseClicked
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        JOptionPane.showMessageDialog(null, "Successfully Sign Out");
+        signin si=new signin();
+        si.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_logoutMouseClicked
 
     private void savedataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_savedataMouseClicked
         String newUsername = username.getText().trim();
@@ -259,6 +272,11 @@ public class profile extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_savedataMouseClicked
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+        username.setEditable(true);
+        password.setEditable(true);
+    }//GEN-LAST:event_editMouseClicked
 
     /**
      * @param args the command line arguments
@@ -312,6 +330,7 @@ public class profile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel logout;
     private javax.swing.JTextField password;
     private javax.swing.JLabel savedata;
     private javax.swing.JTextField username;
