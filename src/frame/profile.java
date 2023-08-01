@@ -231,6 +231,9 @@ public class profile extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
+        this.dispose();
+        about ab=new about(userID);
+        ab.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
