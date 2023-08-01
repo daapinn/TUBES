@@ -11,10 +11,9 @@ package frame;
  */
 public class about extends javax.swing.JFrame {
     private int userID;
-    /**
-     * Creates new form about
-     */
-    public about() {
+
+    // Constructor with parameter
+    public about(int userID) {
         initComponents();
         this.userID = userID;
     }
@@ -71,6 +70,7 @@ public class about extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 110));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -108,11 +108,7 @@ public class about extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new about().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
