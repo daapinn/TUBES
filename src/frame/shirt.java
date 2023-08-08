@@ -29,11 +29,11 @@ public class shirt extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        BuyBlackAlbum = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        Buy40XXX = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -58,9 +58,9 @@ public class shirt extends javax.swing.JFrame {
         jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 670, 140, -1));
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 45.png"))); // NOI18N
-        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 140, -1));
+        BuyBlackAlbum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 45.png"))); // NOI18N
+        BuyBlackAlbum.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(BuyBlackAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 140, -1));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 46.png"))); // NOI18N
         jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -74,9 +74,14 @@ public class shirt extends javax.swing.JFrame {
         jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 670, 140, 20));
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 44.png"))); // NOI18N
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 140, -1));
+        Buy40XXX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 44.png"))); // NOI18N
+        Buy40XXX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Buy40XXX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Buy40XXXMouseClicked(evt);
+            }
+        });
+        getContentPane().add(Buy40XXX, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 140, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 49.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 110, -1, -1));
@@ -205,6 +210,10 @@ public class shirt extends javax.swing.JFrame {
         sh.setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
 
+    private void Buy40XXXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buy40XXXMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Buy40XXXMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -237,6 +246,8 @@ public class shirt extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Buy40XXX;
+    private javax.swing.JLabel BuyBlackAlbum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -246,9 +257,7 @@ public class shirt extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;

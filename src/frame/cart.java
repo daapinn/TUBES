@@ -5,20 +5,126 @@
  */
 package frame;
 
+import java.awt.BorderLayout;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import tubes.Koneksi;
+import tubes.WrapLayout;
+
 /**
  *
  * @author daapinn
  */
 public class cart extends javax.swing.JFrame {
     
+    
+
+private javax.swing.JPanel itemsPanel;
+private javax.swing.JScrollPane jScrollPane1;
     private int userID;
-    /**
-     * Creates new form shop
-     */
-    public cart(int userID) {
-        initComponents();
-        this.userID = userID;
+  
+   public cart(int userID) {
+    initComponents();
+    this.userID = userID;
+    jPanel2.setLayout(new WrapLayout(WrapLayout.LEFT,10,10));
+
+}
+void displayCartItems() {
+    
+    
+    try {
+        Connection connection = Koneksi.getKoneksi();
+        String sql = "SELECT * FROM cart_items WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, userID);
+        ResultSet resultSet = statement.executeQuery();
+        
+        // Prepare a StringBuilder to hold the cart items information
+        StringBuilder cartItemsText = new StringBuilder();
+        List <String> li = new ArrayList<String>();
+        
+        // Build the cart items text and create the ImageIcon
+        ImageIcon icon = null;
+        boolean hasItems = false; // Flag to check if there are items in the cart
+        int itemCount = 0; // Counter for the number of items in the cart
+
+        while (resultSet.next()) {
+            hasItems = true; // Set the flag to true as there are items in the cart
+            itemCount++; // Increment the item counter
+
+            String productName = resultSet.getString("product_name");
+            double price = resultSet.getDouble("price");
+            String imagePath = resultSet.getString("image_path");
+            li.add(productName);
+            // Append the product details to the cartItemsText
+            //cartItemsText.append("").append(productName).append(", ").append(price).append(",").append(imagePath).append("");
+
+            // Create an ImageIcon from the imagePath and set it as the icon for the label
+            try {
+                URL imageUrl = getClass().getResource(imagePath);
+                
+                if (imageUrl != null) {
+                    icon = new ImageIcon(imageUrl);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        
+        
+        if (hasItems) {
+            // Update the label's text with the cart items information
+            
+            
+            for (String d : li){
+                card a = new card();
+                a.getLabel1().setText(cartItemsText.toString());
+            if (itemCount > 1) {
+               
+
+                // Change the icon to a different one indicating multiple items
+                try {
+                    URL imageUrl = getClass().getResource("/path/to/multi_items_icon.png");
+                    
+                    if (imageUrl != null) {
+                        icon = new ImageIcon(imageUrl);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Set the position of Label1 (original label) to make room for the new label
+                if (icon != null) {
+                a.getLabel1().setIcon(icon);
+            }
+            } else {
+            // If there are no items in the cart, display a message or handle it accordingly
+            a.getLabel1().setText("Your cart is empty.");
+            // Set the default position of Label1 if there are no items
+            }    
+            jPanel2.add(a);
+            }
+            
+        }
+        
+        }
+            // Set the icon in the original label (Label1)
+            
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Error retrieving cart items.");
     }
+}
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,54 +135,65 @@ public class cart extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel12 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 11.png"))); // NOI18N
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 580, -1, 20));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Tulisan.png"))); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 450, 150));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 560, 490));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Vector 4.png"))); // NOI18N
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, -1, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ORDER DETAIL.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, -1, -1));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 10.png"))); // NOI18N
+        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, 330, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 10.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, 330, -1));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 16.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 410, -1));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Journey!.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/CONTACT.png"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ORDER DETAIL.png"))); // NOI18N
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ORDER DETAIL.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 11.png"))); // NOI18N
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 580, -1, 20));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 16.png"))); // NOI18N
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 410, -1));
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Vector 4.png"))); // NOI18N
+        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 16.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 410, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/HOME.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -85,16 +202,40 @@ public class cart extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 50, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 50, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Journey!.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 10.png"))); // NOI18N
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, 330, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 4.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 110));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 11.png"))); // NOI18N
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 580, -1, 20));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 21.png"))); // NOI18N
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 4.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 110));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -147,6 +288,10 @@ public class cart extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -155,5 +300,7 @@ public class cart extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

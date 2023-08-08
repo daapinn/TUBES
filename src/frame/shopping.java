@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package frame;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import tubes.Koneksi;
+
 /**
  *
  * @author daapinn
@@ -17,6 +23,10 @@ public class shopping extends javax.swing.JFrame {
         initComponents();
         this.userID = userID;
     }
+    
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,7 +37,7 @@ public class shopping extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel21 = new javax.swing.JLabel();
+        Buy72Season = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -53,9 +63,14 @@ public class shopping extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 44.png"))); // NOI18N
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 140, -1));
+        Buy72Season.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 44.png"))); // NOI18N
+        Buy72Season.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Buy72Season.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Buy72SeasonMouseClicked(evt);
+            }
+        });
+        getContentPane().add(Buy72Season, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 140, -1));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 45.png"))); // NOI18N
         jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -204,6 +219,47 @@ public class shopping extends javax.swing.JFrame {
         ac.setVisible(true);
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void Buy72SeasonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buy72SeasonMouseClicked
+      String productName = "72 Season"; // Replace with actual product name
+    double price = 630000.00; // Replace with actual product price
+    int productId = 100001; // Replace with actual product ID
+    String imagePath = "/asset/Group 61.png"; // Replace with actual image path
+
+    try {
+        Connection connection = Koneksi.getKoneksi();
+        System.out.println("Database connection established.");
+
+        String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, this.userID);
+        statement.setInt(2, productId);
+        statement.setString(3, productName);
+        statement.setDouble(4, price);
+        statement.setString(5, imagePath);
+        int rowsInserted = statement.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("Product added to cart successfully.");
+        } else {
+            System.out.println("Error adding product to cart.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Error: " + e.getMessage());
+    }
+
+    // Open the cart frame
+    this.dispose();
+    cart cartFrame = new cart(userID);
+    cartFrame.setVisible(true);
+
+    // Display cart items in the cart frame
+    cartFrame.displayCartItems();
+    
+
+
+
+    }//GEN-LAST:event_Buy72SeasonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -236,6 +292,7 @@ public class shopping extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Buy72Season;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -244,7 +301,6 @@ public class shopping extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
