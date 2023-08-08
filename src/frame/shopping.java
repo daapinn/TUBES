@@ -41,9 +41,9 @@ public class shopping extends javax.swing.JFrame {
         Buy72Season = new javax.swing.JLabel();
         BlackAlbum = new javax.swing.JLabel();
         RTLWWaistBag = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        Buy72Gloves = new javax.swing.JLabel();
+        OneJacket = new javax.swing.JLabel();
+        TS40anniv = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -91,17 +91,32 @@ public class shopping extends javax.swing.JFrame {
         });
         getContentPane().add(RTLWWaistBag, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 350, 140, -1));
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 47.png"))); // NOI18N
-        jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 670, 140, -1));
+        Buy72Gloves.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 47.png"))); // NOI18N
+        Buy72Gloves.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Buy72Gloves.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Buy72GlovesMouseClicked(evt);
+            }
+        });
+        getContentPane().add(Buy72Gloves, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 670, 140, -1));
 
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 50.png"))); // NOI18N
-        jLabel26.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 670, 150, -1));
+        OneJacket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 50.png"))); // NOI18N
+        OneJacket.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        OneJacket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OneJacketMouseClicked(evt);
+            }
+        });
+        getContentPane().add(OneJacket, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 670, 150, -1));
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 51.png"))); // NOI18N
-        jLabel27.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 670, 140, 20));
+        TS40anniv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 51.png"))); // NOI18N
+        TS40anniv.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TS40anniv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TS40annivMouseClicked(evt);
+            }
+        });
+        getContentPane().add(TS40anniv, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 670, 140, 20));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 61.png"))); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, -1, -1));
@@ -206,6 +221,10 @@ public class shopping extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        this.dispose();
+        contact ct=new contact(userID);
+        ct.setVisible(true);
+    
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -231,10 +250,10 @@ public class shopping extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void Buy72SeasonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buy72SeasonMouseClicked
-        String productName = "72 Season"; // Replace with actual product name
-        double price = 630000.00; // Replace with actual product price
-        int productId = 100001; // Replace with actual product ID
-        String imagePath = "/asset/Group 61.png"; // Replace with actual image path
+        String productName = "72 Season"; 
+        double price = 630000.00;
+        String productId = "JCK001"; 
+        String imagePath = "/asset/Group 61.png"; 
 
         try {
             Connection connection = Koneksi.getKoneksi();
@@ -243,7 +262,7 @@ public class shopping extends javax.swing.JFrame {
             String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, this.userID);
-            statement.setInt(2, productId);
+            statement.setString(2, productId);
             statement.setString(3, productName);
             statement.setDouble(4, price);
             statement.setString(5, imagePath);
@@ -273,7 +292,7 @@ public class shopping extends javax.swing.JFrame {
         // TODO add your handling code here:
         String productName = "Black Album"; 
         double price = 400000.00;
-        int productId = 100002; 
+        String productId = "TSH001"; 
         String imagePath = "/asset/Group 69.png"; 
 
         try {
@@ -283,7 +302,7 @@ public class shopping extends javax.swing.JFrame {
             String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, this.userID);
-            statement.setInt(2, productId);
+            statement.setString(2, productId);
             statement.setString(3, productName);
             statement.setDouble(4, price);
             statement.setString(5, imagePath);
@@ -304,7 +323,7 @@ public class shopping extends javax.swing.JFrame {
         // TODO add your handling code here:
         String productName = "Ride The Lightning Weistbag"; 
         double price = 400000.00;
-        int productId = 100003; 
+        String productId = "AC001"; 
         String imagePath = "/asset/Group 70.png"; 
 
         try {
@@ -314,7 +333,7 @@ public class shopping extends javax.swing.JFrame {
             String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, this.userID);
-            statement.setInt(2, productId);
+            statement.setString(2, productId);
             statement.setString(3, productName);
             statement.setDouble(4, price);
             statement.setString(5, imagePath);
@@ -330,6 +349,99 @@ public class shopping extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(null,productName+" Successfuly Added to Cart");
     }//GEN-LAST:event_RTLWWaistBagMouseClicked
+
+    private void Buy72GlovesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buy72GlovesMouseClicked
+        // TODO add your handling code here:
+        String productName = "72 Gloves"; 
+        double price = 200000.00;
+        String productId = "ACC002"; 
+        String imagePath = "/asset/Group 73.png"; 
+
+        try {
+            Connection connection = Koneksi.getKoneksi();
+            System.out.println("Database connection established.");
+
+            String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, this.userID);
+            statement.setString(2, productId);
+            statement.setString(3, productName);
+            statement.setDouble(4, price);
+            statement.setString(5, imagePath);
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Product added to cart successfully.");
+            } else {
+                System.out.println("Error adding product to cart.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+        }
+        JOptionPane.showMessageDialog(null,productName+" Successfuly Added to Cart");
+    }//GEN-LAST:event_Buy72GlovesMouseClicked
+
+    private void OneJacketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OneJacketMouseClicked
+        // TODO add your handling code here:
+        String productName = "One"; 
+        double price = 550000.00;
+        String productId = "JCK002"; 
+        String imagePath = "/asset/Group 66.png"; 
+
+        try {
+            Connection connection = Koneksi.getKoneksi();
+            System.out.println("Database connection established.");
+
+            String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, this.userID);
+            statement.setString(2, productId);
+            statement.setString(3, productName);
+            statement.setDouble(4, price);
+            statement.setString(5, imagePath);
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Product added to cart successfully.");
+            } else {
+                System.out.println("Error adding product to cart.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+        }
+        JOptionPane.showMessageDialog(null,productName+" Successfuly Added to Cart");
+    }//GEN-LAST:event_OneJacketMouseClicked
+
+    private void TS40annivMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TS40annivMouseClicked
+        // TODO add your handling code here:    
+        String productName = "40th Anniversary Horseman";
+        double price = 400000.00;
+        String productId = "TSH002"; 
+        String imagePath = "/asset/Group 54.png"; 
+
+        try {
+            Connection connection = Koneksi.getKoneksi();
+            System.out.println("Database connection established.");
+
+            String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, this.userID);
+            statement.setString(2, productId);
+            statement.setString(3, productName);
+            statement.setDouble(4, price);
+            statement.setString(5, imagePath);
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Product added to cart successfully.");
+            } else {
+                System.out.println("Error adding product to cart.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+        }
+        JOptionPane.showMessageDialog(null,productName+" Successfuly Added to Cart");
+    }//GEN-LAST:event_TS40annivMouseClicked
 
     /**
      * @param args the command line arguments
@@ -364,8 +476,11 @@ public class shopping extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BlackAlbum;
+    private javax.swing.JLabel Buy72Gloves;
     private javax.swing.JLabel Buy72Season;
+    private javax.swing.JLabel OneJacket;
     private javax.swing.JLabel RTLWWaistBag;
+    private javax.swing.JLabel TS40anniv;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -374,10 +489,7 @@ public class shopping extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

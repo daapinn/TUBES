@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import tubes.Koneksi;
 import tubes.WrapLayout;
 
@@ -35,6 +36,25 @@ private javax.swing.JScrollPane jScrollPane1;
     this.userID = userID;
     jPanel2.setLayout(new WrapLayout(WrapLayout.LEFT,10,10));
 
+}
+ void deleteAllCartItems() {
+    try {
+        Connection connection = Koneksi.getKoneksi();
+        String sql = "DELETE FROM cart_items WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, userID);
+        int rowsAffected = statement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(this, "Cart items deleted successfully!");
+            displayCartItems();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to delete cart items.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error deleting cart items.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
 void displayCartItems() {
     try {
@@ -106,8 +126,9 @@ void displayCartItems() {
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        DeleteBtn = new javax.swing.JLabel();
+        BtnBuy = new javax.swing.JLabel();
+        abo = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -129,6 +150,11 @@ void displayCartItems() {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/CONTACT.png"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ORDER DETAIL.png"))); // NOI18N
@@ -146,18 +172,32 @@ void displayCartItems() {
         });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 50, -1, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 10.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 690, 330, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        DeleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 80.png"))); // NOI18N
+        DeleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                DeleteBtnMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
+        jPanel1.add(DeleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 700, 170, -1));
+
+        BtnBuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 79.png"))); // NOI18N
+        BtnBuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnBuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuyMouseClicked(evt);
+            }
+        });
+        jPanel1.add(BtnBuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 700, 170, -1));
+
+        abo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
+        abo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        abo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aboMouseClicked(evt);
+            }
+        });
+        jPanel1.add(abo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 21.png"))); // NOI18N
@@ -181,9 +221,12 @@ void displayCartItems() {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void aboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseClicked
+        this.dispose();
+        about ab = new about(userID);
+        ab.setVisible(true);
+    }//GEN-LAST:event_aboMouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
@@ -191,6 +234,58 @@ void displayCartItems() {
         homepage hp=new homepage(userID);
         hp.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
+        // TODO add your handling code here:
+        int confirmDialog = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete all items from your cart?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+    if (confirmDialog == JOptionPane.YES_OPTION) {
+        deleteAllCartItems();
+    }
+
+    }//GEN-LAST:event_DeleteBtnMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        contact ct=new contact(userID);
+        ct.setVisible(true);
+    
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void BtnBuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuyMouseClicked
+    
+        try {
+        Connection connection = Koneksi.getKoneksi();
+        String sql = "SELECT SUM(price) AS total FROM cart_items WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, userID);
+        ResultSet resultSet = statement.executeQuery();
+
+        double total = 0.0;
+
+        // Calculate the total price of items in the cart
+        if (resultSet.next()) {
+            total = resultSet.getDouble("total");
+        }
+
+        // ... Your code for moving data to the new database (if needed)
+
+        // Display a confirmation dialog to inform the user about the successful purchase
+        int confirmDialog = JOptionPane.showConfirmDialog(this, "Your purchase was successful!\nTotal amount: " + total + "\nDo you want to proceed to payment confirmation?", "Purchase Complete", JOptionPane.YES_NO_OPTION);
+
+        if (confirmDialog == JOptionPane.YES_OPTION) {
+            // Create an instance of the confirm class and open it
+            this.dispose(); // Close the cart window
+            cart cartInstance = new cart(userID);
+    confirm confirmFrame = new confirm(total, userID, cartInstance);
+    confirmFrame.setVisible(true);
+        } else if(confirmDialog == JOptionPane.NO_OPTION) {
+        } 
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error during purchase. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+        }//GEN-LAST:event_BtnBuyMouseClicked
 
     /**
      * @param args the command line arguments
@@ -224,15 +319,16 @@ void displayCartItems() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BtnBuy;
+    private javax.swing.JLabel DeleteBtn;
+    private javax.swing.JLabel abo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

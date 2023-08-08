@@ -96,7 +96,7 @@ public class profile extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        aboutbtn = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -198,16 +198,21 @@ public class profile extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/CONTACT.png"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
-        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                jLabel2MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, -1, -1));
+
+        aboutbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
+        aboutbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        aboutbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aboutbtnMouseClicked(evt);
+            }
+        });
+        getContentPane().add(aboutbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Journey!.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
@@ -229,12 +234,12 @@ public class profile extends javax.swing.JFrame {
         hp.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void aboutbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutbtnMouseClicked
         // TODO add your handling code here:
         this.dispose();
         about ab = new about(userID);
         ab.setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_aboutbtnMouseClicked
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         JOptionPane.showMessageDialog(null, "Successfully Sign Out");
@@ -277,9 +282,21 @@ public class profile extends javax.swing.JFrame {
     }//GEN-LAST:event_savedataMouseClicked
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-        username.setEditable(true);
-        password.setEditable(true);
+        int confirmDialog = JOptionPane.showConfirmDialog(this, "Are you sure you want to edit your information?", "Confirm Edit", JOptionPane.YES_NO_OPTION);
+        if (confirmDialog == JOptionPane.YES_OPTION) {
+            username.setEditable(true);
+            password.setEditable(true);
+            username.setFocusable(true);
+        }
     }//GEN-LAST:event_editMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        contact ct=new contact(userID);
+        ct.setVisible(true);
+    
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -314,6 +331,7 @@ public class profile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel aboutbtn;
     private javax.swing.JLabel edit;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
@@ -327,7 +345,6 @@ public class profile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
