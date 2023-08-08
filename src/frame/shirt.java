@@ -204,9 +204,11 @@ public class shirt extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        // TODO add your handling code here:
+
         this.dispose();
+        
         cart sh=new cart(userID);
+        sh.displayCartItems();
         sh.setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
 

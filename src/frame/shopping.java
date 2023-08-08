@@ -38,7 +38,7 @@ public class shopping extends javax.swing.JFrame {
     private void initComponents() {
 
         Buy72Season = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        BlackAlbum = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -72,9 +72,14 @@ public class shopping extends javax.swing.JFrame {
         });
         getContentPane().add(Buy72Season, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 140, -1));
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 45.png"))); // NOI18N
-        jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 140, -1));
+        BlackAlbum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 45.png"))); // NOI18N
+        BlackAlbum.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BlackAlbum.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BlackAlbumMouseClicked(evt);
+            }
+        });
+        getContentPane().add(BlackAlbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 140, -1));
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 46.png"))); // NOI18N
         jLabel25.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -220,45 +225,72 @@ public class shopping extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void Buy72SeasonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Buy72SeasonMouseClicked
-      String productName = "72 Season"; // Replace with actual product name
-    double price = 630000.00; // Replace with actual product price
-    int productId = 100001; // Replace with actual product ID
-    String imagePath = "/asset/Group 61.png"; // Replace with actual image path
+        String productName = "72 Season"; // Replace with actual product name
+        double price = 630000.00; // Replace with actual product price
+        int productId = 100001; // Replace with actual product ID
+        String imagePath = "/asset/Group 61.png"; // Replace with actual image path
 
-    try {
-        Connection connection = Koneksi.getKoneksi();
-        System.out.println("Database connection established.");
+        try {
+            Connection connection = Koneksi.getKoneksi();
+            System.out.println("Database connection established.");
 
-        String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, this.userID);
-        statement.setInt(2, productId);
-        statement.setString(3, productName);
-        statement.setDouble(4, price);
-        statement.setString(5, imagePath);
-        int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) {
-            System.out.println("Product added to cart successfully.");
-        } else {
-            System.out.println("Error adding product to cart.");
+            String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, this.userID);
+            statement.setInt(2, productId);
+            statement.setString(3, productName);
+            statement.setDouble(4, price);
+            statement.setString(5, imagePath);
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Product added to cart successfully.");
+            } else {
+                System.out.println("Error adding product to cart.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        System.out.println("Error: " + e.getMessage());
-    }
 
-    // Open the cart frame
-    this.dispose();
-    cart cartFrame = new cart(userID);
-    cartFrame.setVisible(true);
-
-    // Display cart items in the cart frame
-    cartFrame.displayCartItems();
+    //this.dispose();
+    //cart cartFrame = new cart(userID);
+    //cartFrame.setVisible(true);
+    //cartFrame.displayCartItems();
     
 
 
-
     }//GEN-LAST:event_Buy72SeasonMouseClicked
+
+    private void BlackAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BlackAlbumMouseClicked
+
+        // TODO add your handling code here:
+        String productName = "Black Album"; // Replace with actual product name
+        double price = 630000.00; // Replace with actual product price
+        int productId = 100002; // Replace with actual product ID
+        String imagePath = "/asset/Group 69.png"; // Replace with actual image path
+
+        try {
+            Connection connection = Koneksi.getKoneksi();
+            System.out.println("Database connection established.");
+
+            String sql = "INSERT INTO cart_items (id, product_id, product_name, price, image_path) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, this.userID);
+            statement.setInt(2, productId);
+            statement.setString(3, productName);
+            statement.setDouble(4, price);
+            statement.setString(5, imagePath);
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Product added to cart successfully.");
+            } else {
+                System.out.println("Error adding product to cart.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_BlackAlbumMouseClicked
 
     /**
      * @param args the command line arguments
@@ -292,6 +324,7 @@ public class shopping extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BlackAlbum;
     private javax.swing.JLabel Buy72Season;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -303,7 +336,6 @@ public class shopping extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;

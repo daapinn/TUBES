@@ -59,10 +59,10 @@ void displayCartItems() {
             hasItems = true; // Set the flag to true as there are items in the cart
             itemCount++; // Increment the item counter
 
-            String productName = resultSet.getString("product_name");
-            double price = resultSet.getDouble("price");
-            String imagePath = resultSet.getString("image_path");
-            li.add(productName);
+            String CartID = resultSet.getString("cart_id");
+            
+            li.add(CartID);
+            String imagePath = resultSet.getString("image_path");   
             // Append the product details to the cartItemsText
             //cartItemsText.append("").append(productName).append(", ").append(price).append(",").append(imagePath).append("");
 
@@ -86,20 +86,6 @@ void displayCartItems() {
                 card a = new card();
                 a.getLabel1().setText(cartItemsText.toString());
             if (itemCount > 1) {
-               
-
-                // Change the icon to a different one indicating multiple items
-                try {
-                    URL imageUrl = getClass().getResource("/path/to/multi_items_icon.png");
-                    
-                    if (imageUrl != null) {
-                        icon = new ImageIcon(imageUrl);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                // Set the position of Label1 (original label) to make room for the new label
                 if (icon != null) {
                 a.getLabel1().setIcon(icon);
             }
