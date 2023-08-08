@@ -37,78 +37,54 @@ private javax.swing.JScrollPane jScrollPane1;
 
 }
 void displayCartItems() {
-    
-    
     try {
         Connection connection = Koneksi.getKoneksi();
         String sql = "SELECT * FROM cart_items WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, userID);
         ResultSet resultSet = statement.executeQuery();
-        
-        // Prepare a StringBuilder to hold the cart items information
-        StringBuilder cartItemsText = new StringBuilder();
-        List <String> li = new ArrayList<String>();
-        
-        // Build the cart items text and create the ImageIcon
-        ImageIcon icon = null;
-        boolean hasItems = false; // Flag to check if there are items in the cart
-        int itemCount = 0; // Counter for the number of items in the cart
 
+        // Clear the panel before adding new items
+        jPanel2.removeAll();
+        jPanel2.revalidate();
+        jPanel2.repaint();
+
+        // Loop through the items and add them to the panel
         while (resultSet.next()) {
-            hasItems = true; // Set the flag to true as there are items in the cart
-            itemCount++; // Increment the item counter
-
             String CartID = resultSet.getString("cart_id");
-            
-            li.add(CartID);
-            String imagePath = resultSet.getString("image_path");   
-            // Append the product details to the cartItemsText
-            //cartItemsText.append("").append(productName).append(", ").append(price).append(",").append(imagePath).append("");
+            String imagePath = resultSet.getString("image_path");
 
-            // Create an ImageIcon from the imagePath and set it as the icon for the label
+            ImageIcon icon = null;
             try {
                 URL imageUrl = getClass().getResource(imagePath);
-                
                 if (imageUrl != null) {
                     icon = new ImageIcon(imageUrl);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        
-        
-        if (hasItems) {
-            // Update the label's text with the cart items information
-            
-            
-            for (String d : li){
-                card a = new card();
-                a.getLabel1().setText(cartItemsText.toString());
-            if (itemCount > 1) {
-                if (icon != null) {
-                a.getLabel1().setIcon(icon);
-            }
-            } else {
-            // If there are no items in the cart, display a message or handle it accordingly
-            a.getLabel1().setText("Your cart is empty.");
-            // Set the default position of Label1 if there are no items
-            }    
+
+            card a = new card();
+            // Assuming you have a label in the card class to display the image
+            a.getLabel1().setIcon(icon);
+
             jPanel2.add(a);
-            }
-            
         }
-        
+
+        // If there are no items in the cart, display a message or handle it accordingly
+        if (jPanel2.getComponentCount() == 0) {
+            card emptyCard = new card();
+            emptyCard.getLabel1().setText("Your cart is empty.");
+            jPanel2.add(emptyCard);
         }
-            // Set the icon in the original label (Label1)
-            
-        
+
+        jPanel2.revalidate();
+        jPanel2.repaint();
     } catch (SQLException e) {
         e.printStackTrace();
         System.out.println("Error retrieving cart items.");
     }
 }
-
 
 
 
@@ -122,20 +98,15 @@ void displayCartItems() {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -144,19 +115,17 @@ void displayCartItems() {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 560, 490));
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Vector 4.png"))); // NOI18N
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, -1, -1));
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 10.png"))); // NOI18N
-        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, 330, -1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Shopping Cart.png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Journey!.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jScrollPane2.setViewportView(jPanel2);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 1000, 450));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/CONTACT.png"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -167,19 +136,6 @@ void displayCartItems() {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ORDER DETAIL.png"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, -1, -1));
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 11.png"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 580, -1, 20));
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 16.png"))); // NOI18N
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 410, -1));
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Vector 4.png"))); // NOI18N
-        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 230, -1, -1));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 16.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 410, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/HOME.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -192,10 +148,7 @@ void displayCartItems() {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 10.png"))); // NOI18N
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, 330, -1));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Group 11.png"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 580, -1, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 690, 330, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/ABOUT.png"))); // NOI18N
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -206,6 +159,7 @@ void displayCartItems() {
         });
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, -1, 20));
 
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/Rectangle 21.png"))); // NOI18N
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, -1, -1));
 
@@ -273,20 +227,15 @@ void displayCartItems() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
